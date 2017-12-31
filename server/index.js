@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dns = require('dns');
 const async = require('async');
+const url = require('url');
 
 
 // Configuration
@@ -15,11 +16,18 @@ app.use(
     })
 );
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 // Routes
-app.post('/mails', function(req, res) {
-    var name = req.body.name;
-    var surname = req.body.surname;
-    var company = req.body.company;
+app.get('/mails', function(req, res) {
+    var data = url.parse(req.url, true).query;
+    var name = data.name.toLowerCase();
+    var surname = data.surname.toLowerCase();
+    var company = data.company.toLowerCase();
     var zones = ['ru', 'com','ua','com.ua','org'];
 
     var mailNames = [];
