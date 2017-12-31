@@ -1,6 +1,13 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
 
+  <div>
+    <input type="text" (keyup)="onNameKeyUP($event)" placeholder="Name">
+    <input type="text" (keyup)="onSurnameKeyUP($event)" placeholder="Surname">
+    <input type="text" (keyup)="onCompanyKeyUP($event)" placeholder="Company">
+    <button (click)="getEmails()">Get Emails</button>
+  </div>
+  <br>
+  <div *ngFor="let email of emails">
+    <div>{{email}}</div>
+  </div>
